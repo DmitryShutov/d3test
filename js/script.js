@@ -1,17 +1,36 @@
- var dataset = [];
- for(var i=0; i<5; i++) {
-     var newNumber = Math.floor(Math.random()*30);
-     dataset.push(newNumber);
- }
-              d3.select("body").selectAll("div")
-                .data(dataset)
-                .enter()
-                .append("div")
-                .attr("class", "bar")
-                .style("height", function(d){
-                    var barHeight = d*10;
-                   return barHeight+'px'; 
-                });
+var dataset = [ 5, 10, 13, 19, 21, 25, 22, 18, 15, 13,
+                11, 12, 15, 20, 18, 17, 16, 18, 23, 25];
+     
+//New SVG
+var w = 500;
+var h = 200;
+var barPadding = 1;
+
+var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+            
+svg.selectAll("rect")
+    .data(dataset)
+    .enter()
+    .append("rect")
+    .attr('x', function(d,i){
+        return i*(w/dataset.length-barPadding);
+    })
+    .attr('y', function(d){
+        return h-d*4;
+    })
+    .attr('width', 20)
+    .attr('height', function(d){
+        return d*4;
+    })
+    .attr("fill", function(d){
+        return "rgb(0, 0, "+ (d*10) + ")";
+    });
+
+//Old SVG
+/*
 dataset = [5, 10, 15, 20, 30];
 var w = 500;
 var h = 100;
@@ -39,5 +58,5 @@ circles.attr('cx', function(d, i){
     .attr("stroke-width", function(d){
         return d/2;
     });
-
+*/
     
