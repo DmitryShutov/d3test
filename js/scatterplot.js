@@ -11,8 +11,8 @@ var dataset = [
                   [ 220,   88 ]
               ];
               
-var w = 500;
-var h = 200;
+var w = 600;
+var h = 300;
 
 var svg = d3.select('body')
             .append('svg')
@@ -29,4 +29,24 @@ svg.selectAll('circle')
     .attr('cy', function(d){
         return d[1];
     })
-    .attr('r', 5);
+    .attr('r', function(d)  {
+        return Math.sqrt(h-d[1]);
+    })
+    .attr('fill', 'blue')
+
+svg.selectAll('text')
+    .data(dataset)
+    .enter()
+    .append('text')
+    .text(function(d)  {
+        return d[0] + ',' + d[1];
+    })
+    .attr('x', function(d)  {
+        return d[0]+17;
+    })
+    .attr('y', function(d)  {
+        return d[1]+7;
+    })
+    .attr('font-family', 'sans-serif')
+    .attr('font-size', '11px')
+    .attr('fill', 'red')
