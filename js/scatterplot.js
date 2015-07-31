@@ -17,7 +17,7 @@ var h = 300;
 var svg = d3.select('body')
             .append('svg')
             .attr('width', w)
-            .attr('height', h)
+            .attr('height', h);
             
 svg.selectAll('circle')
     .data(dataset)
@@ -32,7 +32,7 @@ svg.selectAll('circle')
     .attr('r', function(d)  {
         return Math.sqrt(h-d[1]);
     })
-    .attr('fill', 'blue')
+    .attr('fill', 'blue');
 
 svg.selectAll('text')
     .data(dataset)
@@ -49,4 +49,5 @@ svg.selectAll('text')
     })
     .attr('font-family', 'sans-serif')
     .attr('font-size', '11px')
-    .attr('fill', 'red')
+    .attr('fill', 'red');
+    
