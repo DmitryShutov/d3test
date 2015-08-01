@@ -2,21 +2,26 @@ var dataset = [ 5, 10, 13, 19, 21, 25, 22, 18, 15, 13,
                 11, 12, 15, 20, 18, 17, 16, 18, 23, 25];
      
 //New SVG
-var w = 500;
-var h = 200;
+var w = 600;
+var h = 250;
 var barPadding = 1;
 
 var svg = d3.select("body")
             .append("svg")
             .attr("width", w)
             .attr("height", h);
-            
+
+var xScale = d3.scale.ordinal()
+                .domain(d3.range(dataset.length))
+                .rangeRoundBands([0,w], 0.05)
+                
+                            
 svg.selectAll("rect")
     .data(dataset)
     .enter()
     .append("rect")
     .attr('x', function(d,i){
-        return i*(w/dataset.length);
+        return xScale(i);
     })
     .attr('y', function(d){
         return h-d*4;
@@ -38,7 +43,7 @@ svg.selectAll("text")
 			   })
 			   .attr("text-anchor", "middle")
 			   .attr("x", function(d, i) {
-			   		return i * (w / dataset.length) + (w / dataset.length)/2 - 3;
+			   		return (xScale(i)+10);
 			   })
 			   .attr("y", function(d) {
 			   		return h - (d * 4) + 14;
@@ -46,6 +51,10 @@ svg.selectAll("text")
 			   .attr("font-family", "sans-serif")
 			   .attr("font-size", "11px")
 			   .attr("fill", "white");
+			   
+			   
+			   
+
     
 //Old SVG
 /*
