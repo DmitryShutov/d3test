@@ -1,6 +1,5 @@
 var dataset = [ 5, 10, 13, 19, 21, 25, 22, 18, 15, 13,
                 11, 12, 15, 20, 18, 17, 16, 18, 23, 25];
-     
 //New SVG
 var w = 1200;
 var h = 750;
@@ -19,8 +18,7 @@ var xScale = d3.scale.ordinal()
 var yScale = d3.scale.linear()
                 .domain([0, d3.max(dataset)])
                 .range([h,0]);
-                
-
+    
 svg.selectAll("rect")
     .data(dataset)
     .enter()
@@ -56,4 +54,35 @@ svg.selectAll("text")
 			   .attr("font-family", "sans-serif")
 			   .attr("font-size", "17px")
 			   .attr("fill", "white");
-			   
+console.log("It works!");
+
+window.onload = function(){			   
+d3.select("p")
+    .on("click", function() {
+           dataset = [11, 12, 15, 20, 18, 17, 16, 18, 23, 25,
+                    5, 10, 13, 19, 21, 25, 22, 18, 15, 13 ];
+        svg.selectAll("rect")
+            .data(dataset)
+            .attr("y", function(d)  {
+                return yScale(d);
+            })
+            .attr('height', function(d){
+                return h-yScale(d);
+            })
+            .attr("fill", function(d) {   // <-- Down here!
+            return "rgb(0, 0, " + (d * 10) + ")";
+            });
+        svg.selectAll("text")
+           .data(dataset)
+           .text(function(d) {
+                return d;
+           })
+           .attr("x", function(d, i) {
+                return xScale(i) + xScale.rangeBand() / 2;
+           })
+           .attr("y", function(d) {
+                return yScale(d)+25;
+           });
+    });
+    
+};
