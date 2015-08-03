@@ -63,6 +63,9 @@ d3.select("p")
                     5, 10, 13, 19, 21, 25, 22, 18, 15, 13 ];
         svg.selectAll("rect")
             .data(dataset)
+            .transition()
+            .duration(1000)
+            .ease('circle')
             .attr("y", function(d)  {
                 return yScale(d);
             })
@@ -74,6 +77,9 @@ d3.select("p")
             });
         svg.selectAll("text")
            .data(dataset)
+           .transition()
+           .duration(1000)
+           .ease('circle')
            .text(function(d) {
                 return d;
            })
