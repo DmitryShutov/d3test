@@ -64,6 +64,9 @@ d3.select("p")
         svg.selectAll("rect")
             .data(dataset)
             .transition()
+            .delay(function(d,i)  {
+                return i/dataset.length*1000;
+            })
             .duration(1000)
             .ease('circle')
             .attr("y", function(d)  {
@@ -78,6 +81,9 @@ d3.select("p")
         svg.selectAll("text")
            .data(dataset)
            .transition()
+           .delay(function(d,i)  {
+                return i/dataset.length*1000;
+            })
            .duration(1000)
            .ease('circle')
            .text(function(d) {
