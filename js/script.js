@@ -59,15 +59,19 @@ console.log("It works!");
 window.onload = function(){			   
 d3.select("p")
     .on("click", function() {
-           dataset = [11, 12, 15, 20, 18, 17, 16, 18, 23, 25,
-                    5, 10, 13, 19, 21, 25, 22, 18, 15, 13 ];
+        var numValues = dataset.length;
+        dataset = [];
+        for(var i=0;i<numValues;i++)  {
+            var val = Math.floor(Math.random()*25)+1;
+            dataset.push(val);
+        }
         svg.selectAll("rect")
             .data(dataset)
             .transition()
             .delay(function(d,i)  {
                 return i/dataset.length*1000;
             })
-            .duration(1000)
+            .duration(500)
             .ease('circle')
             .attr("y", function(d)  {
                 return yScale(d);
@@ -84,7 +88,7 @@ d3.select("p")
            .delay(function(d,i)  {
                 return i/dataset.length*1000;
             })
-           .duration(1000)
+           .duration(500)
            .ease('circle')
            .text(function(d) {
                 return d;
