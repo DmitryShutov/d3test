@@ -13,7 +13,7 @@ var svg = d3.select("body")
 
 var xScale = d3.scale.ordinal()
                 .domain(d3.range(dataset.length))
-                .rangeRoundBands([0,w], 0.05)
+                .rangeRoundBands([0,w], 0.05);
                 
 var yScale = d3.scale.linear()
                 .domain([0, d3.max(dataset)])
@@ -62,9 +62,18 @@ d3.select("p")
         var numValues = dataset.length;
         dataset = [];
         for(var i=0;i<numValues;i++)  {
-            var val = Math.floor(Math.random()*25)+1;
+            var val = Math.floor(Math.random()*50)+1;
             dataset.push(val);
         }
+        xScale = d3.scale.ordinal()
+                .domain(d3.range(dataset.length))
+                .rangeRoundBands([0,w], 0.05)
+                
+        yScale = d3.scale.linear()
+                .domain([0, d3.max(dataset)])
+                .range([h,0]);
+        
+        
         svg.selectAll("rect")
             .data(dataset)
             .transition()

@@ -11,29 +11,64 @@ var dataset = [
                   [ 220,   88 ]
               ];
               
-var w = 600;
-var h = 300;
+var w = 1000;
+var h = 700;
+var padding = 10;
 
 var svg = d3.select('body')
             .append('svg')
             .attr('width', w)
             .attr('height', h);
-            
-svg.selectAll('circle')
-    .data(dataset)
-    .enter()
-    .append('circle')
-    .attr('cx', function(d){
-        return d[0];
-    })
-    .attr('cy', function(d){
-        return d[1];
-    })
-    .attr('r', function(d)  {
-        return Math.sqrt(h-d[1]);
-    })
-    .attr('fill', 'blue');
 
+
+              
+window.onload = function(){
+
+function draw(dataset) {
+    xScale = d3.scale.linear()
+                .domain([0,d3.max(dataset, function(d){
+                    return d[0]; })])
+                .range([padding,w-padding]);
+    
+    yScale = d3.scale.linear()
+                .domain([0, d3.max(dataset, function(d) {
+                    return d[1]; })])
+                .range([padding,h-padding]);
+    svg.selectAll('circle')
+        .remove();
+        
+    svg.selectAll('circle')
+        .data(dataset)
+        .enter()
+        .append('circle')
+        .attr('cx', function(d){
+            return xScale(d[0]);
+        })
+        .attr('cy', function(d){
+            return yScale(d[1]);
+        })
+        .attr('r', function(d)  {
+            return 5;
+        })
+        .attr('fill', 'blue');
+}           
+
+
+
+d3.select('p')
+    .on('click', function(){
+        var numValues=dataset.length;
+        newDataset=[];
+        console.log("It works!");
+        for(var i=0;i<numValues;i++)  {
+            newDataset.push([Math.floor(Math.random()*50),Math.floor(Math.random()*50)]);
+        }
+        console.log(newDataset);
+        draw(newDataset);
+    });
+
+draw(dataset);
+/* 
 svg.selectAll('text')
     .data(dataset)
     .enter()
@@ -50,4 +85,6 @@ svg.selectAll('text')
     .attr('font-family', 'sans-serif')
     .attr('font-size', '11px')
     .attr('fill', 'red');
-    
+
+*/
+};
